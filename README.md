@@ -1,2 +1,1 @@
-# snake-game
-Snake Game made in JavaScript
+<h1>Just for fun</h1>
