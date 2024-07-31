@@ -1,0 +1,40 @@
+canvas {
+    border: 3px solid red;
+}
+
+body {
+    display: flex;
+    justify-content: left;
+    align-items: left;
+  
+    background-color: #f0f0f0;
+    margin: 20;
+    margin-right: 40;
+    font-family: monospace;
+    font-size: 30px;
+    line-height: 12px;
+}
+
+pre {
+    line-height: 1;
+}
+
+.S {
+    color: blue;
+}
+
+.N {
+    color: green;
+}
+
+.A {
+    color: red;
+}
+
+.K {
+    color: purple;
+}
+
+.E {
+    color: orange;
+}
