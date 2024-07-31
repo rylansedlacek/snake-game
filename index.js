@@ -7,6 +7,7 @@ var score = 0;
 window.onload = function () {
     canvas = document.getElementById("game-canvas");
     ctx = canvas.getContext("2d");
+    db = firebase.firestore();
     
     head = {
         x: Math.floor(Math.random() * 20),
@@ -22,6 +23,7 @@ window.onload = function () {
     gameLoop = setInterval(step, 1000/8);
 
     document.getElementById("restart-button").addEventListener("click", restartGame)
+    fetchLeaderboard();
 }
 
 function step() {
@@ -83,6 +85,7 @@ function step() {
     for (let i=0; i<body.length; ++i) {
         if (body[i].x === head.x && body[i].y === head.y) {
             clearTimeout(gameLoop);
+            submitScore(score);
         }
     }
 
@@ -172,4 +175,36 @@ function restartGame() {
         gameLoop = setInterval(step, 1000 / 8);
 }
     
+function submitScore(score) {
+    var playerName = prompt("Enter your name:");
+    db.collection("leaderboard").add({
+        name: playerName,
+        score: score
+    })
+    .then(() => {
+        fetchLeaderboard();
+    })
+    .catch((error) => {
+        console.error("Error adding score: ", error);
+    });
+}
+
+
+function fetchLeaderboard() {
+    db.collection("leaderboard").orderBy("score", "desc").limit(10).get()
+    .then((querySnapshot) => {
+        var leaderboard = document.getElementById("leaderboard");
+        leaderboard.innerHTML = "";
+        querySnapshot.forEach((doc) => {
+            var li = document.createElement("li");
+            var br = document.createElement("br");
+            li.textContent = doc.data().name + ": " + doc.data().score;
+            leaderboard.appendChild(li);
+            leaderboard.appendChild(br);
+        });
+    })
+    .catch((error) => {
+        console.error("Error getting leaderboard: ", error);
+    });
+}
 
