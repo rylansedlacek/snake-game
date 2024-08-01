@@ -1,6 +1,15 @@
-<h1>Snake Game</h1>
+<h1><u>Snake Game:</u></h1>
 
-<h2>It even has a leaderboard.</h2>
-https://rylansedlacek.github.io/snake-game/
+<h2>About:</h2>
 
-<h3>July 2024</h3>
+- Created July 2024.
+- Coded in HTML, CSS, and JS.
+
+<h2>Features:</h2>
+
+- Use of Vanilla JS
+- Keadboard using Firebase Firestore DB
+- Fun
+---------------------------------------------------------------
+<h2>Version 1.0 Summer 2024</h2>
+
