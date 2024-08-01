@@ -23,7 +23,40 @@ window.onload = function () {
 
     document.getElementById("restart-button").addEventListener("click", restartGame);
     fetchLeaderboard(); //everytime for page load
+    
+    if (isMobileDevice()) {
+        showArrowPad();
+    }
+
+
 }
+
+function showArrowPad() {
+    document.getElementById('arrow-pad').style.display = 'flex';
+
+    document.getElementById('up-btn').addEventListener('click', () => changeDirection(0));
+    document.getElementById('right-btn').addEventListener('click', () => changeDirection(1));
+    document.getElementById('down-btn').addEventListener('click', () => changeDirection(2));
+    document.getElementById('left-btn').addEventListener('click', () => changeDirection(3));
+}
+
+function changeDirection(newDirection) {
+    if (newDirection === 0 && direction !== 2) {
+        direction = 0;
+    } else if (newDirection === 1 && direction !== 3) {
+        direction = 1;
+    } else if (newDirection === 2 && direction !== 0) {
+        direction = 2;
+    } else if (newDirection === 3 && direction !== 1) {
+        direction = 3;
+    }
+}
+
+
+function isMobileDevice() {
+    return /Mobi|Android/i.test(navigator.userAgent);
+}
+
 
 function step() {
     if (body.length === 0) {
