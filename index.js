@@ -24,9 +24,9 @@ window.onload = function () {
     document.getElementById("restart-button").addEventListener("click", restartGame);
     fetchLeaderboard(); //everytime for page load
     
-    if (isMobileDevice()) {
+   // if (isMobileDevice()) {
         showArrowPad();
-    }
+   // }
 
 
 }
