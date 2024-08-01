@@ -7,8 +7,8 @@ https://rylansedlacek.github.io/snake-game/
 
 <h2>Features:</h2>
 
-- Use of Vanilla JS
-- Keadboard using Firebase Firestore DB
+- Vanilla JS used
+- Leaderboard using Firebase Firestore DB
 - Fun
 ---------------------------------------------------------------
 <h2>Version 1.0 Summer 2024</h2>
