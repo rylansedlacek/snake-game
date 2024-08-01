@@ -1,5 +1,5 @@
 <h1><u>Snake Game:</u></h1>
-
+https://rylansedlacek.github.io/snake-game/
 <h2>About:</h2>
 
 - Created July 2024.
