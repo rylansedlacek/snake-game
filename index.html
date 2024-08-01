@@ -23,53 +23,24 @@
     <script src="index.js"></script>
 </head>
 <body>
-
     <pre>
-        <span class="S"> SSSS  </span> <span class="N">N   N</span> <span class="A"> AAAAA</span> <span class="K">K   K</span> <span class="E">EEEEE</span><br>
-        <span class="S">SS      </span> <span class="N">NN  N</span> <span class="A">A     A</span> <span class="K">K  K </span> <span class="E">E    </span><br>
-        <span class="S">SS      </span> <span class="N">N N N</span> <span class="A">A     A</span> <span class="K">K K  </span> <span class="E">E    </span><br>
-        <span class="S"> SSSS   </span> <span class="N">N  NN</span> <span class="A">AAAAAAA</span> <span class="K">KK   </span> <span class="E">EEEE </span><br>
-        <span class="S">     SS </span> <span class="N">N   N</span> <span class="A">A     A</span> <span class="K">K K  </span> <span class="E">E    </span><br>
-        <span class="S">     SS </span> <span class="N">N   N</span> <span class="A">A     A</span> <span class="K">K  K </span> <span class="E">E    </span><br>
-        <span class="S"> SSSS  </span> <span class="N">N   N</span> <span class="A">A     A</span> <span class="K">K   K</span> <span class="E">EEEEE</span><br>
+        <span class="S"> SSSS       </span> <span class="N">NN   NN  </span> <span class="A"> AAAAA   </span> <span class="K">  KK   KK   </span> <span class="E">EEEEEE</span><br>
+        <span class="S">SS          </span> <span class="N">NNN  NN  </span> <span class="A">AA    AA  </span> <span class="K"> KK  KK    </span> <span class="E">EE    </span><br>
+        <span class="S">SS          </span> <span class="N">NN N NN  </span> <span class="A">AA    AA  </span> <span class="K"> KK KK     </span> <span class="E">EE    </span><br>
+        <span class="S"> SSSS       </span> <span class="N">NN  NNN  </span> <span class="A">AAAAAAAA  </span> <span class="K"> KKK      </span> <span class="E"> EEEEE </span><br>
+        <span class="S">     SS     </span> <span class="N">NN   NN  </span> <span class="A">AA     AA  </span> <span class="K">KK KK     </span> <span class="E">EE    </span><br>
+        <span class="S">     SS     </span> <span class="N">NN   NN  </span> <span class="A">AA     AA  </span> <span class="K">KK  KK    </span> <span class="E">EE    </span><br>
+        <span class="S"> SSSS       </span> <span class="N">NN   NN  </span> <span class="A">AA     AA  </span> <span class="K">KK   KK   </span> <span class="E">EEEEEE</span><br>
     </pre>
+    
+    <canvas width="500" height="500" id="game-canvas"></canvas>
 
-
-   
-    <canvas width=500 height=500 id="game-canvas"></canvas>
-    <button id="restart-button">restart</button>
-
-    <div>
-        <h2>Leaderboard</h2>
-        <ul id="leaderboard"></ul>
+    <div class="bottom-container">
+        <button id="restart-button">restart</button>
+        <div>
+            <h2><u>Leaderboard</u></h2>
+            <ul id="leaderboard"></ul>
+        </div>
     </div>
-
-<!--
-    <script type="module">
-        // Import the functions you need from the SDKs you need
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-app.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.12.4/firebase-analytics.js";
-        // TODO: Add SDKs for Firebase products that you want to use
-        // https://firebase.google.com/docs/web/setup#available-libraries
-      
-        // Your web app's Firebase configuration
-        // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-        const firebaseConfig = {
-          apiKey: "AIzaSyAvKr0vTjyP1C-WYj5ux5ZZWyLg0klNbcs",
-          authDomain: "snake-leader.firebaseapp.com",
-          projectId: "snake-leader",
-          storageBucket: "snake-leader.appspot.com",
-          messagingSenderId: "981120173467",
-          appId: "1:981120173467:web:44660354fa78cc88df4d3e",
-          measurementId: "G-6HD0DRG3XM"
-        };
-      
-        // Initialize Firebase
-        const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
-      </script>
-
-      -->
-
 </body>
 </html>
