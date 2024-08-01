@@ -1,29 +1,28 @@
-var canvas, ctx, head, food, gameLoop, lastX,lastY;
-//
+var canvas, ctx, head, food, gameLoop, lastX, lastY;
 var body = [];
 var direction = 1;
 var score = 0;
+var topScores = [];
 
 window.onload = function () {
     canvas = document.getElementById("game-canvas");
     ctx = canvas.getContext("2d");
-    db = firebase.firestore();
+    db = firebase.firestore(); //init dc here
     
     head = {
         x: Math.floor(Math.random() * 20),
         y: Math.floor(Math.random() * 20)
-    }
-    //
-       food = {
+    };
+    food = {
         x: Math.floor(Math.random() * 20),
         y: Math.floor(Math.random() * 20)
-       }
-    //
+    };
+    
     setupInputs();
-    gameLoop = setInterval(step, 1000/8);
+    gameLoop = setInterval(step, 1000 / 8);
 
-    document.getElementById("restart-button").addEventListener("click", restartGame)
-    fetchLeaderboard();
+    document.getElementById("restart-button").addEventListener("click", restartGame);
+    fetchLeaderboard(); //everytime for page load
 }
 
 function step() {
@@ -45,7 +44,7 @@ function step() {
         body[0].y = head.y;
     }
 
-    //handle key input here
+    //edit dir based on cardinal directions
     if (direction === 0) {
         head.y--;
     } else if (direction === 1) {
@@ -56,6 +55,7 @@ function step() {
         head.x--;
     }
 
+    //add borders here for head spawn
     if (head.x === 20) {
         head.x = 0;
     } else if (head.x === -1) {
@@ -63,13 +63,12 @@ function step() {
     }
 
     if (head.y === 20) {
-        head.y = 0; 
+        head.y = 0;
     } else if (head.y === -1) {
-       head.y = 19;
+        head.y = 19;
     }
 
-    //grow body here
-
+    //for growing the body
     if (head.x === food.x && head.y === food.y) {
         food.x = Math.floor(Math.random() * 20);
         food.y = Math.floor(Math.random() * 20);
@@ -79,104 +78,103 @@ function step() {
             y: lastY
         };
         body.push(newBody);
-        score ++;
+        score++;
     }
 
-    for (let i=0; i<body.length; ++i) {
+    /**
+     *  End of Game function
+     *  Check and submit score if its above top 3
+     */
+
+    for (let i = 0; i < body.length; i++) {
         if (body[i].x === head.x && body[i].y === head.y) {
             clearTimeout(gameLoop);
-            submitScore(score);
+            checkAndSubmitScore(score);
         }
     }
 
-
-    draw(); //call static func here bud
+    draw(); //draw everytime in our game loop
 }
 
 function draw() {
+    ctx.fillStyle = "black"; // background
+    ctx.fillRect(0, 0, 500, 500);
 
-    //draw background
-    ctx.fillStyle = "black";
-    ctx.fillRect(0,0,500,500);
+    ctx.fillStyle = "green"; //head
+    ctx.fillRect(head.x * 25, head.y * 25, 25, 25);
 
-    //draw head
-    ctx.fillStyle = "green";
-    ctx.fillRect(head.x * 25, head.y * 25, 25,25);
-
-    //draw body here, too slow improve for performance issue
-    for (let i=0; i<body.length; i++) {
+    for (let i = 0; i < body.length; i++) { //body
         ctx.fillStyle = "green";
-        ctx.fillRect(body[i].x * 25, body[i].y * 25, 25,25)
+        ctx.fillRect(body[i].x * 25, body[i].y * 25, 25, 25);
     }
 
-    // draw fruit here same logic as head.
-    ctx.fillStyle = "red";
-    ctx.fillRect(food.x * 25, food.y * 25, 25,25);
+    ctx.fillStyle = "red"; //food
+    ctx.fillRect(food.x * 25, food.y * 25, 25, 25);
 
-    ctx.fillStyle = "white";
+    ctx.fillStyle = "white"; //score text
     ctx.font = "20px Arial";
     ctx.fillText("Score: " + score, 10, 20);
 }
 
 
+/** 
+ * Key handler here
+ * 
+*/
 
-//this is trash change it to use keypress instead.
 function setupInputs() {
     document.addEventListener("keydown", function(event) {
-
-      
-
         if (event.key === "w" || event.key === "ArrowUp") {
-
             if (!(body.length > 1 && direction === 2)) {
                 direction = 0;
             }
-
         } else if (event.key === "d" || event.key === "ArrowRight") {
-          
             if (!(body.length > 1 && direction === 3)) {
                 direction = 1;
             }
-
         } else if (event.key === "s" || event.key === "ArrowDown") {
-
-              if (!(body.length > 1 && direction === 0)) {
+            if (!(body.length > 1 && direction === 0)) {
                 direction = 2;
-              }
-
+            }
         } else if (event.key === "a" || event.key === "ArrowLeft") {
-
-              if (!(body.length > 1 && direction === 1)) {
+            if (!(body.length > 1 && direction === 1)) {
                 direction = 3;
-              }
-
+            }
         }
     });
-
 }
 
+//Respawn everything and clear out gameloop
 function restartGame() {
-  
-        head = {
-            x: Math.floor(Math.random() * 20),
-            y: Math.floor(Math.random() * 20)
-        };
-        
-        food = {
-            x: Math.floor(Math.random() * 20),
-            y: Math.floor(Math.random() * 20)
-        };
-    
-        body = [];
-        direction = 1;
-        score = 0;
+    head = {
+        x: Math.floor(Math.random() * 20),
+        y: Math.floor(Math.random() * 20)
+    };
+    food = {
+        x: Math.floor(Math.random() * 20),
+        y: Math.floor(Math.random() * 20)
+    };
 
-        clearInterval(gameLoop);
-        gameLoop = setInterval(step, 1000 / 8);
+    body = [];
+    direction = 1;
+    score = 0;
+
+    clearInterval(gameLoop);
+    gameLoop = setInterval(step, 1000 / 8);
 }
-    
+
+
+// check to make sure it's above top 3
+function checkAndSubmitScore(score) {
+    fetchTopScores().then(topScores => {
+        if (topScores.length < 3 || score > topScores[2].score) {
+            submitScore(score);
+        }
+    });
+}
+
 function submitScore(score) {
-    var playerName = prompt("Enter your name:");
+    var playerName = prompt("enter name:");
     db.collection("leaderboard").add({
         name: playerName,
         score: score
@@ -185,26 +183,36 @@ function submitScore(score) {
         fetchLeaderboard();
     })
     .catch((error) => {
-        console.error("Error adding score: ", error);
+        console.error("didnt add score: ", error);
     });
 }
 
+function fetchTopScores() {
+    return db.collection("leaderboard").orderBy("score", "desc").limit(3).get()
+    .then((querySnapshot) => {
+        var scores = [];
+        querySnapshot.forEach((doc) => {
+            scores.push(doc.data()); //push
+        });
+        return scores;
+    })
+    .catch((error) => {
+        console.error("couldnt get top scores: ", error);
+    });
+}
 
-function fetchLeaderboard() {
-    db.collection("leaderboard").orderBy("score", "desc").limit(10).get()
+function fetchLeaderboard() {                              //limit to top 3 to prevent scrolling bug 
+    db.collection("leaderboard").orderBy("score", "desc").limit(3).get() 
     .then((querySnapshot) => {
         var leaderboard = document.getElementById("leaderboard");
         leaderboard.innerHTML = "";
         querySnapshot.forEach((doc) => {
             var li = document.createElement("li");
-            var br = document.createElement("br");
             li.textContent = doc.data().name + ": " + doc.data().score;
             leaderboard.appendChild(li);
-            leaderboard.appendChild(br);
         });
     })
     .catch((error) => {
-        console.error("Error getting leaderboard: ", error);
+        console.error("couldnt get the board: ", error);
     });
 }
-
