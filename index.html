@@ -79,6 +79,27 @@
             <div class="arrow-btn" id="right-btn">→</div>
         </div>
     </div>
+
+     <script>
+        function isMobileDevice() {
+            return (typeof window.orientation !== "undefined") || (navigator.userAgent.indexOf('IEMobile') !== -1);
+        }
+
+        function adjustCanvasSize() {
+            const canvas = document.getElementById('game-canvas');
+            if (isMobileDevice()) {
+                canvas.width = window.innerWidth * 0.9;
+                canvas.height = window.innerWidth * 0.9;
+            } else {
+                canvas.width = 500;
+                canvas.height = 500;
+            }
+        }
+
+        window.onload = adjustCanvasSize;
+        window.onresize = adjustCanvasSize;
+    </script>
+
     
 </body>
 </html>
